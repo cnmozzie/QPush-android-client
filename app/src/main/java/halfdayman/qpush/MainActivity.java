@@ -7,8 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static List<String> logList = new CopyOnWriteArrayList<String>();
+    private TextView mLogView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +24,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        QPushApplication.setMainActivity(this);
+        mLogView = (TextView) findViewById(R.id.log);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshLogInfo();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        QPushApplication.setMainActivity(null);
     }
 
     @Override
@@ -44,5 +65,13 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    public void refreshLogInfo() {
+        String AllLog = "";
+        for (String log : logList) {
+            AllLog = AllLog + log + "\n\n";
+        }
+        mLogView.setText(AllLog);
     }
 }
