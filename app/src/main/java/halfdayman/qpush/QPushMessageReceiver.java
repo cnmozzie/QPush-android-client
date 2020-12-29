@@ -63,7 +63,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
                 "onReceivePassThroughMessage is called. " + message.toString());
         mMessage = message.getContent();
         String log = context.getString(R.string.recv_passthrough_message, mMessage);
-        MainActivity.logList.add(0, getSimpleDate() + " " + log);
+        SystemLogsActivity.logList.add(0, getSimpleDate() + " " + log);
         if (!TextUtils.isEmpty(message.getTopic())) {
             mTopic = message.getTopic();
         } else if (!TextUtils.isEmpty(message.getAlias())) {
@@ -80,7 +80,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
                 "onNotificationMessageClicked is called. " + message.toString());
         mMessage = message.getContent();
         String log = context.getString(R.string.click_notification_message, mMessage);
-        MainActivity.logList.add(0, getSimpleDate() + " " + log);
+        SystemLogsActivity.logList.add(0, getSimpleDate() + " " + log);
         if (!TextUtils.isEmpty(message.getTopic())) {
             mTopic = message.getTopic();
         } else if (!TextUtils.isEmpty(message.getAlias())) {
@@ -97,7 +97,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
                 "onNotificationMessageArrived is called. " + message.toString());
         mMessage = message.getContent();
         String log = context.getString(R.string.arrive_notification_message, mMessage);
-        MainActivity.logList.add(0, getSimpleDate() + " " + log);
+        SystemLogsActivity.logList.add(0, getSimpleDate() + " " + log);
         if (!TextUtils.isEmpty(message.getTopic())) {
             mTopic = message.getTopic();
         } else if (!TextUtils.isEmpty(message.getAlias())) {
@@ -177,7 +177,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
         } else {
             log = message.getReason();
         }
-        MainActivity.logList.add(0, getSimpleDate() + "    " + log);
+        SystemLogsActivity.logList.add(0, getSimpleDate() + "    " + log);
         QPushApplication.handleMessage();
     }
 
@@ -199,7 +199,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
         } else {
             log = message.getReason();
         }
-        MainActivity.logList.add(0, getSimpleDate() + "    " + log);
+        SystemLogsActivity.logList.add(0, getSimpleDate() + "    " + log);
         QPushApplication.handleMessage();
     }
 

@@ -35,7 +35,7 @@ public class QPushApplication extends Application {
     // halfdayman.qpush
     public static final String TAG = "halfdayman.qpush";
 
-    private static MainActivity sMainActivity = null;
+    private static SystemLogsActivity sSystemLogsActivity = null;
 
     @Override
     public void onCreate() {
@@ -45,7 +45,7 @@ public class QPushApplication extends Application {
         // 可以从QPushMessageReceiver的onCommandResult方法中MiPushCommandMessage对象参数中获取注册信息
         if (shouldInit()) {
             MiPushClient.registerPush(this, APP_ID, APP_KEY);
-            MainActivity.logList.add(0, "start register!");
+            SystemLogsActivity.logList.add(0, "start register!");
             handleMessage();
         }
         //打开Log
@@ -82,12 +82,12 @@ public class QPushApplication extends Application {
         return false;
     }
 
-    public static void setMainActivity(MainActivity activity) {
-        sMainActivity = activity;
+    public static void setSystemLogsActivity(SystemLogsActivity activity) {
+        sSystemLogsActivity = activity;
     }
     public static void handleMessage() {
-        if (sMainActivity != null) {
-            sMainActivity.refreshLogInfo();
+        if (sSystemLogsActivity != null) {
+            sSystemLogsActivity.refreshLogInfo();
         }
     }
 }
