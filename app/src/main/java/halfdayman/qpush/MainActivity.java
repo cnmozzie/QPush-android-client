@@ -8,8 +8,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<Message> lists;
+    private MyAdapter adapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        listView = (ListView) findViewById(R.id.dialog_list);
+        lists = new ArrayList<>();
+        lists.add(new Message(R.mipmap.ic_launcher,"QPush","Hello, thank you for trying QPush."));
+        lists.add(new Message(R.mipmap.ic_launcher,"李四","你好，我是李四"));
+        lists.add(new Message(R.mipmap.ic_launcher,"王五","你好，我是王五"));
+        adapter = new MyAdapter(lists,MainActivity.this);
+        listView.setAdapter(adapter);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
