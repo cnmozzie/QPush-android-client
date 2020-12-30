@@ -8,16 +8,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Message> lists;
-    private MyAdapter adapter;
-    private ListView listView;
+    // dialogList用于存储数据
+    private List<Dialog> dialogList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +29,34 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        listView = (ListView) findViewById(R.id.dialog_list);
-        lists = new ArrayList<>();
-        lists.add(new Message(R.mipmap.ic_launcher,"QPush","Hello, thank you for trying QPush."));
-        lists.add(new Message(R.mipmap.ic_launcher,"李四","你好，我是李四"));
-        lists.add(new Message(R.mipmap.ic_launcher,"王五","你好，我是王五"));
-        adapter = new MyAdapter(lists,MainActivity.this);
+        // 先拿到数据并放在适配器上
+        initDialogs();
+        DialogAdapter adapter=new DialogAdapter(dialogList,MainActivity.this);
+
+        // 将适配器上的数据传递给listView
+        ListView listView=findViewById(R.id.dialog_list);
         listView.setAdapter(adapter);
+
+        // 为ListView注册一个监听器，当用户点击了ListView中的任何一个子项时，就会回调onItemClick()方法
+        // 在这个方法中可以通过position参数判断出用户点击的是那一个子项
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Dialog dialog=dialogList.get(position);
+                Toast.makeText(MainActivity.this,dialog.getTheme(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, DialogActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    // 初始化数据
+    private void initDialogs(){
+        for(int i=0;i<10;i++){
+            dialogList.add(new Dialog(R.mipmap.ic_launcher,"QPush","Hello, thank you for trying QPush."));
+            dialogList.add(new Dialog(R.mipmap.ic_launcher,"李四","你好，我是李四"));
+            dialogList.add(new Dialog(R.mipmap.ic_launcher,"王五","你好，我是王五"));
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
