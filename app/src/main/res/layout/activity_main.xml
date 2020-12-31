@@ -19,7 +19,7 @@
         app:popupTheme="@style/ToolbarPopupTheme" />
 
     <ListView
-        android:id="@+id/dialog_list"
+        android:id="@+id/message_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

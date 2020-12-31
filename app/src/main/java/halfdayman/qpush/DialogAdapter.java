@@ -15,10 +15,10 @@ import java.util.List;
  */
 public class DialogAdapter extends ArrayAdapter<Dialog> {
 
-    int resourceId=R.layout.list_item;
+    int resourceId=R.layout.dialog_item;
 
     public DialogAdapter(List<Dialog> datas, Context mContext) {
-        super(mContext, R.layout.list_item, datas);
+        super(mContext, R.layout.dialog_item, datas);
     }
 
     // convertView 参数用于将之前加载好的布局进行缓存

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         DialogAdapter adapter=new DialogAdapter(dialogList,MainActivity.this);
 
         // 将适配器上的数据传递给listView
-        ListView listView=findViewById(R.id.dialog_list);
+        ListView listView=findViewById(R.id.message_list);
         listView.setAdapter(adapter);
 
         // 为ListView注册一个监听器，当用户点击了ListView中的任何一个子项时，就会回调onItemClick()方法
