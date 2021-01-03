@@ -6,5 +6,19 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="light">#FFF5F5F5</color>
     <color name="white">#FFFFFFFF</color>
+    <!--   color for the app bar and other primary UI elements -->
+    <color name="colorPrimary">#008577</color>
+
+    <!--   a darker variant of the primary color, used for
+           the status bar (on Android 5.0+) and contextual app bars -->
+    <color name="colorPrimaryDark">#00574B</color>
+
+    <!--   a secondary color for controls like checkboxes and text fields -->
+    <color name="colorAccent">#7e53c5</color>
+
+    <!--   显示在状态栏的颜色 -->
+    <color name="colorPrimaryVariant">#7F000000</color>
+
 </resources>

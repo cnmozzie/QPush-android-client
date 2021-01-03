@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home"
+    app:startDestination="@id/dialogsFragment">
+
+    <fragment
+        android:id="@+id/dialogsFragment"
+        android:name="halfdayman.qpush.homescreen.DialogList"
+        android:label="fragment_dialogs"
+        tools:layout="@layout/fragment_dialogs" />
+
+    <fragment
+        android:id="@+id/squareFragment"
+        android:name="halfdayman.qpush.squarescreen.SquareFragment"
+        android:label="fragment_square"
+        tools:layout="@layout/fragment_square" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="halfdayman.qpush.settingscreen.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+
+</navigation>

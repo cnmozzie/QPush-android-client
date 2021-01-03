@@ -2,11 +2,11 @@ package halfdayman.qpush;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-import halfdayman.qpush.R;
+import halfdayman.qpush.settingscreen.SettingsFragment;
+
 import com.xiaomi.mipush.sdk.ErrorCode;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
@@ -63,7 +63,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
                 "onReceivePassThroughMessage is called. " + message.toString());
         mMessage = message.getContent();
         String log = context.getString(R.string.recv_passthrough_message, mMessage);
-        SystemLogsActivity.logList.add(0, getSimpleDate() + " " + log);
+        SettingsFragment.logList.add(0, getSimpleDate() + " " + log);
         if (!TextUtils.isEmpty(message.getTopic())) {
             mTopic = message.getTopic();
         } else if (!TextUtils.isEmpty(message.getAlias())) {
@@ -80,7 +80,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
                 "onNotificationMessageClicked is called. " + message.toString());
         mMessage = message.getContent();
         String log = context.getString(R.string.click_notification_message, mMessage);
-        SystemLogsActivity.logList.add(0, getSimpleDate() + " " + log);
+        SettingsFragment.logList.add(0, getSimpleDate() + " " + log);
         if (!TextUtils.isEmpty(message.getTopic())) {
             mTopic = message.getTopic();
         } else if (!TextUtils.isEmpty(message.getAlias())) {
@@ -97,7 +97,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
                 "onNotificationMessageArrived is called. " + message.toString());
         mMessage = message.getContent();
         String log = context.getString(R.string.arrive_notification_message, mMessage);
-        SystemLogsActivity.logList.add(0, getSimpleDate() + " " + log);
+        SettingsFragment.logList.add(0, getSimpleDate() + " " + log);
         if (!TextUtils.isEmpty(message.getTopic())) {
             mTopic = message.getTopic();
         } else if (!TextUtils.isEmpty(message.getAlias())) {
@@ -177,7 +177,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
         } else {
             log = message.getReason();
         }
-        SystemLogsActivity.logList.add(0, getSimpleDate() + "    " + log);
+        SettingsFragment.logList.add(0, getSimpleDate() + "    " + log);
         QPushApplication.handleMessage();
     }
 
@@ -199,7 +199,7 @@ public class QPushMessageReceiver extends PushMessageReceiver {
         } else {
             log = message.getReason();
         }
-        SystemLogsActivity.logList.add(0, getSimpleDate() + "    " + log);
+        SettingsFragment.logList.add(0, getSimpleDate() + "    " + log);
         QPushApplication.handleMessage();
     }
 
