@@ -14,4 +14,9 @@
         <!-- Customize your theme here. -->
 
     </style>
+
+    <style name="Button.Light" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/light</item>
+        <item name="colorOnPrimary">@color/colorPrimary</item>
+    </style>
 </resources>
