@@ -7,6 +7,8 @@ import android.content.Context;
 import android.os.Process;
 import android.util.Log;
 
+import androidx.room.Room;
+
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -34,6 +36,7 @@ public class QPushApplication extends Application {
     public static final String TAG = "halfdayman.qpush";
 
     private static SettingsFragment sSettingsFragment = null;
+
 
     @Override
     public void onCreate() {
@@ -88,4 +91,5 @@ public class QPushApplication extends Application {
             sSettingsFragment.refreshLogInfo();
         }
     }
+
 }

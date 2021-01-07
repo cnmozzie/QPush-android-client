@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import halfdayman.qpush.Dialog;
 import halfdayman.qpush.DialogActivity;
@@ -25,6 +26,8 @@ import halfdayman.qpush.Message;
 import halfdayman.qpush.R;
 import halfdayman.qpush.SquareMessage;
 import halfdayman.qpush.SquareMessageAdapter;
+import halfdayman.qpush.SquareMessageDao;
+import halfdayman.qpush.SquareMessageDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,15 +47,29 @@ public class SquareFragment extends Fragment {
 
         mContext = getActivity().getApplicationContext();
         list_message = view.findViewById(R.id.message_list);
-        mData = new LinkedList<SquareMessage>();
-        mData.add(new SquareMessage("狗说", "你是狗么?"));
-        mData.add(new SquareMessage("牛说", "你是牛么?"));
-        mData.add(new SquareMessage("鸭说", "你是鸭么?"));
-        mData.add(new SquareMessage("鱼说", "你是鱼么?"));
-        mData.add(new SquareMessage("马说", "你是马么?"));
-
-        mAdapter = new SquareMessageAdapter((LinkedList<SquareMessage>) mData, mContext);
+        mData = new ArrayList<SquareMessage>();
+        mAdapter = new SquareMessageAdapter((List<SquareMessage>) mData, mContext);
         list_message.setAdapter(mAdapter);
+
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                //mContext.deleteDatabase("square_message_database"); // for test only, should remove later
+                SquareMessageDao message = SquareMessageDatabase.getInstance(mContext).squareMessage();
+                mData =  message.getAll();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i=0; i<mData.size(); i++) {
+                            mAdapter.add(mData.get(i));
+                        }
+                    }
+                });
+
+            }
+        });
+
 
         // 为ListView注册一个监听器，当用户点击了ListView中的任何一个子项时，就会回调onItemClick()方法
         // 在这个方法中可以通过position参数判断出用户点击的是那一个子项
@@ -60,7 +77,7 @@ public class SquareFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SquareMessage message=mData.get(position);
-                Log.v("message", message.getaName());
+                Log.v("message", message.user_name);
             }
         });
 

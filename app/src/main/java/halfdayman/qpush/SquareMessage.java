@@ -1,31 +1,23 @@
 package halfdayman.qpush;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class SquareMessage {
-    private String aName;
-    private String aSpeak;
+    @PrimaryKey(autoGenerate = true)
+    public int mid;
 
-    public SquareMessage() {
-    }
+    @ColumnInfo(name = "user_name")
+    public String user_name;
 
-    public SquareMessage(String aName, String aSpeak) {
-        this.aName = aName;
-        this.aSpeak = aSpeak;
-    }
+    @ColumnInfo(name = "message_content")
+    public String message_content;
 
-    public String getaName() {
-        return aName;
-    }
-
-    public String getaSpeak() {
-        return aSpeak;
-    }
-
-    public void setaName(String aName) {
-        this.aName = aName;
-    }
-
-    public void setaSpeak(String aSpeak) {
-        this.aSpeak = aSpeak;
+    public SquareMessage(String user_name, String message_content) {
+        this.user_name = user_name;
+        this.message_content = message_content;
     }
 
 }
