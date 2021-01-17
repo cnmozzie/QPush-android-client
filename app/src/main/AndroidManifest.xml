@@ -23,7 +23,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QPush">
-        <activity android:name=".PostActivity"></activity>
         <activity android:name=".DialogActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

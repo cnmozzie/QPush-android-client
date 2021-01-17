@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,10 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import halfdayman.qpush.Dialog;
-import halfdayman.qpush.DialogActivity;
-import halfdayman.qpush.DialogAdapter;
-import halfdayman.qpush.Message;
+
 import halfdayman.qpush.R;
 import halfdayman.qpush.SquareMessage;
 import halfdayman.qpush.SquareMessageAdapter;
@@ -44,8 +44,29 @@ public class SquareFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_square, container, false);
-
         mContext = getActivity().getApplicationContext();
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("Square");
+        toolbar.inflateMenu(R.menu.toolbar_menu);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                // Handle item selection
+                switch (item.getItemId()) {
+                    case R.id.action_new:
+                        Navigation.findNavController(view).navigate(R.id.action_squareFragment_to_postFragment);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
         list_message = view.findViewById(R.id.message_list);
         mData = new ArrayList<SquareMessage>();
         mAdapter = new SquareMessageAdapter((List<SquareMessage>) mData, mContext);

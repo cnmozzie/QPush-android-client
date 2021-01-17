@@ -2,6 +2,7 @@ package halfdayman.qpush.settingscreen;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -29,6 +30,10 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("Settings");
+
         mLogView = (TextView) view.findViewById(R.id.logView);
         Log.v("important","new log view");
         QPushApplication.setSettingsFragment(this);

@@ -3,10 +3,12 @@ package halfdayman.qpush.homescreen;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,6 +36,27 @@ public class DialogList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dialogs, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("QPush");
+        toolbar.inflateMenu(R.menu.toolbar_menu);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                // Handle item selection
+                switch (item.getItemId()) {
+                    case R.id.action_new:
+                        Log.v("menu_action","add a new channel...");
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
         // 先拿到数据并放在适配器上
         initDialogs();
         DialogAdapter adapter=new DialogAdapter(dialogList, getActivity().getApplicationContext());

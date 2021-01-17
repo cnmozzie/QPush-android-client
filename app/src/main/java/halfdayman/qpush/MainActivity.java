@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -28,30 +29,6 @@ public class MainActivity extends AppCompatActivity {
                 .findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-
-                // Handle item selection
-                switch (item.getItemId()) {
-                    case R.id.action_new:
-                        if (navController.getCurrentDestination().getId() == R.id.squareFragment) {
-                            Intent intent = new Intent(MainActivity.this, PostActivity.class);
-                            startActivity(intent);
-                        }
-                        else {
-                            Log.v("menu_action","add a new channel...");
-                        }
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
-
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         NavigationUI.setupWithNavController(bottomNav, navController);
 
@@ -60,21 +37,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller,
                                              @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if(destination.getId() == R.id.dialogsFragment) {
-                    toolbar.setTitle("QPush");
-                    toolbar.getMenu().clear();
-                    toolbar.inflateMenu(R.menu.toolbar_menu);
+                    Log.v("Navigation","Dialogs");
                 }
                 else if(destination.getId() == R.id.squareFragment) {
-                    toolbar.setTitle("Square");
-                    Menu menu = toolbar.getMenu();
-                    MenuItem item = menu.findItem(R.id.action_new);
-                    item.setVisible(true);
+                    bottomNav.setVisibility(View.VISIBLE);
                 }
                 else if(destination.getId() == R.id.settingsFragment) {
-                    toolbar.setTitle("Settings");
-                    Menu menu = toolbar.getMenu();
-                    MenuItem item = menu.findItem(R.id.action_new);
-                    item.setVisible(false);
+                    Log.v("Navigation","Settings");
+                }
+                else if(destination.getId() == R.id.postFragment) {
+                    bottomNav.setVisibility(View.INVISIBLE);
                 }
                 else {
                     Log.v("Navigation","Wrong destination");

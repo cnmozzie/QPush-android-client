@@ -15,13 +15,26 @@
         android:id="@+id/squareFragment"
         android:name="halfdayman.qpush.squarescreen.SquareFragment"
         android:label="fragment_square"
-        tools:layout="@layout/fragment_square" />
+        tools:layout="@layout/fragment_square" >
+        <action
+            android:id="@+id/action_squareFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="halfdayman.qpush.settingscreen.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="halfdayman.qpush.squarescreen.PostFragment"
+        android:label="post_fragment"
+        tools:layout="@layout/post_fragment" >
+        <action
+            android:id="@+id/action_postFragment_to_squareFragment"
+            app:destination="@id/squareFragment" />
+    </fragment>
 
 
 </navigation>
