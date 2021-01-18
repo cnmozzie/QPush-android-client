@@ -55,10 +55,10 @@ public abstract class SquareMessageDatabase extends RoomDatabase {
             runInTransaction(new Runnable() {
                 @Override
                 public void run() {
-                    squareMessage().insertOneMessage(new SquareMessage("本地消息", "欢迎来到广场！"));
-                    squareMessage().insertOneMessage(new SquareMessage("狗说", "你是狗么?"));
-                    squareMessage().insertOneMessage(new SquareMessage("鸭说", "你是鸭么?"));
-                    squareMessage().insertOneMessage(new SquareMessage("马说", "你是马么?"));
+                    squareMessage().insertOneMessage(new SquareMessage(0, "本地消息", "欢迎来到广场！"));
+                    squareMessage().insertOneMessage(new SquareMessage(-1, "狗说", "你是狗么?"));
+                    squareMessage().insertOneMessage(new SquareMessage(-1, "鸭说", "你是鸭么?"));
+                    squareMessage().insertOneMessage(new SquareMessage(-1, "马说", "你是马么?"));
                 }
             });
         }

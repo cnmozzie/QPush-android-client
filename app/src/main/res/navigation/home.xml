@@ -30,7 +30,7 @@
         android:id="@+id/postFragment"
         android:name="halfdayman.qpush.squarescreen.PostFragment"
         android:label="post_fragment"
-        tools:layout="@layout/post_fragment" >
+        tools:layout="@layout/fragment_post_" >
         <action
             android:id="@+id/action_postFragment_to_squareFragment"
             app:destination="@id/squareFragment" />

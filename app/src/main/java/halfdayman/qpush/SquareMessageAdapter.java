@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SquareMessageAdapter extends BaseAdapter {
     private List<SquareMessage> mData;
-    private Context mContext;
+    private final Context mContext;
 
     public SquareMessageAdapter(List<SquareMessage> mData, Context mContext) {
         this.mData = mData;
@@ -49,6 +49,12 @@ public class SquareMessageAdapter extends BaseAdapter {
             mData = new LinkedList<>();
         }
         mData.add(data);
+        notifyDataSetChanged();
+    }
+
+    public void update(List<SquareMessage> messages) {
+        mData.clear();
+        mData.addAll(messages);
         notifyDataSetChanged();
     }
 }

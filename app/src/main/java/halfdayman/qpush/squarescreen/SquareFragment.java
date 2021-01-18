@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 
+import halfdayman.qpush.MessageViewModel;
 import halfdayman.qpush.R;
 import halfdayman.qpush.SquareMessage;
 import halfdayman.qpush.SquareMessageAdapter;
@@ -35,7 +38,6 @@ import halfdayman.qpush.SquareMessageDatabase;
 public class SquareFragment extends Fragment {
 
     private List<SquareMessage> mData = null;
-    private Context mContext;
     private SquareMessageAdapter mAdapter = null;
     private ListView list_message;
 
@@ -44,7 +46,7 @@ public class SquareFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_square, container, false);
-        mContext = getActivity().getApplicationContext();
+        Context mContext = getActivity().getApplicationContext();
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("Square");
@@ -72,24 +74,6 @@ public class SquareFragment extends Fragment {
         mAdapter = new SquareMessageAdapter((List<SquareMessage>) mData, mContext);
         list_message.setAdapter(mAdapter);
 
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                //mContext.deleteDatabase("square_message_database"); // for test only, should remove later
-                SquareMessageDao message = SquareMessageDatabase.getInstance(mContext).squareMessage();
-                mData =  message.getAll();
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i=0; i<mData.size(); i++) {
-                            mAdapter.add(mData.get(i));
-                        }
-                    }
-                });
-
-            }
-        });
 
 
         // 为ListView注册一个监听器，当用户点击了ListView中的任何一个子项时，就会回调onItemClick()方法
@@ -103,6 +87,16 @@ public class SquareFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        MessageViewModel model = new ViewModelProvider(requireActivity()).get(MessageViewModel.class);
+        model.getMessages().observe(getViewLifecycleOwner(), messages -> {
+            // Update the UI.
+            mAdapter.update(messages);
+            Log.v("message", "adapter updated!");
+        });
     }
 
 }
